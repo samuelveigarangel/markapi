@@ -11,8 +11,8 @@ from reference.models import Reference, ReferenceStatus
 
 
 class ReferenceViewSet(
-    GenericViewSet,  # generic view functionality
-    CreateModelMixin,  # handles POSTs
+    GenericViewSet,
+    CreateModelMixin
 ):
     serializer_class = ReferenceSerializer
     permission_classes = [IsAuthenticated]
@@ -21,14 +21,13 @@ class ReferenceViewSet(
     ]
 
     def create(self, request, *args, **kwargs):
-        # Redirigir a la función api_reference()
         return self.api_reference(request)
 
     def api_reference(self, request):
         try:
             data = json.loads(request.body)
-            post_reference = data.get("reference")  # Obtiene el parámetro
-            post_type = data.get("type")  # Obtiene el parámetro
+            post_reference = data.get("reference")
+            post_type = data.get("type")
 
             try:
                 reference = Reference.objects.get(mixed_citation=post_reference)

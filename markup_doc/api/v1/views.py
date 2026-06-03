@@ -8,12 +8,10 @@ from rest_framework.viewsets import GenericViewSet
 from markup_doc.api.v1.serializers import ArticleDocxSerializer
 from markup_doc.marker import mark_article
 
-# Create your views here.
-
 
 class ArticleViewSet(
-    GenericViewSet,  # generic view functionality
-    CreateModelMixin,  # handles POSTs
+    GenericViewSet,
+    CreateModelMixin
 ):
     serializer_class = ArticleDocxSerializer
     permission_classes = [IsAuthenticated]
@@ -27,8 +25,8 @@ class ArticleViewSet(
     def api_article(self, request):
         try:
             data = json.loads(request.body)
-            post_text = data.get("text")  # Obtiene el parámetro
-            post_metadata = data.get("metadata")  # Obtiene el parámetro
+            post_text = data.get("text")
+            post_metadata = data.get("metadata")
 
             resp_data = mark_article(post_text, post_metadata)
 
